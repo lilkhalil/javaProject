@@ -23,6 +23,6 @@ public class Metal {
     private String name;
     @Column(name = "density")
     private Float density;
-    @OneToMany(mappedBy = "metal")
+    @OneToMany(mappedBy = "metal", cascade = CascadeType.ALL)
     private Set<Jewelry> jewelrys;
 }

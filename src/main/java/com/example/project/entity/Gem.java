@@ -24,6 +24,6 @@ public class Gem {
     private String name;
     @Column(name = "class")
     private String gemClass;
-    @OneToMany(mappedBy = "gem")
+    @OneToMany(mappedBy = "gem", cascade = CascadeType.ALL)
     private Set<Jewelry> jewelrys;
 }

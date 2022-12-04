@@ -29,11 +29,10 @@
                 <li><a href="/metals">Metals</a></li>
                 <li><a href="/jewelrys">Jewelrys</a></li>
 			  </ul>
-			  <form class="navbar-form navbar-right" action="/action_page.php">
+			  <form class="navbar-form navbar-right">
 				<div class="form-group">
-				  <input type="text" class="form-control" placeholder="Search">
+					<input id="searchButton" type="text" class="form-control search-input" placeholder="Search" data-table="table-striped">
 				</div>
-				<button type="submit" class="btn btn-success">Submit</button>
 			  </form>
 			</div>
 		  </nav>
@@ -87,14 +86,14 @@
 												<div class="form-group">
 													<label>Gem</label>
 													<select name="gemId" class="form-control">
-														<option th:selected="${elem.getGem().getId()}" th:text="${elem.getGem().getName()}"></option>
+														<option th:value="${elem.getGem().getId()}" th:text="${elem.getGem().getName()}" selected></option>
 														<option th:each = "gem : ${gems}" th:unless="${elem.getGem().getId() == gem.getId()}" th:value="${gem.getId()}" th:text="${gem.getName()}"></option>
 													</select>
 												</div>
                                                 <div class="form-group">
 													<label>Metal</label>
 													<select name="metalId" class="form-control" required>
-														<option th:selected="${elem.getMetal().getId()}" th:text="${elem.getMetal().getName()}"></option>
+														<option th:value="${elem.getMetal().getId()}" th:text="${elem.getMetal().getName()}" selected></option>
 														<option th:each = "metal : ${metals}" th:unless="${elem.getMetal().getId() == metal.getId()}" th:value="${metal.getId()}" th:text="${metal.getName()}"></option>
 													</select>
 												</div>				
