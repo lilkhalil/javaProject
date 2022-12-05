@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL Selector</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <body>
+    <div class="container">
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+			  <div class="navbar-header">
+				<b><a class="navbar-brand" href="/">Haunted Family</a></b>
+			  </div>
+			  <ul class="nav navbar-nav">
+				<li><a href="/materials">Materials</a></li>
+				<li><a href="/tools">Tools</a></li>
+				<li><a href="/employees">Employees</a></li>
+                <li><a href="/gems">Gems</a></li>
+                <li><a href="/metals">Metals</a></li>
+                <li><a href="/jewelrys">Jewelrys</a></li>
+                <li><a href="/selectors">SQL Selector</a></li>
+			  </ul>
+			  <div class="navbar-form navbar-right">
+				<input id="searchButton" type="text" class="form-control search-input" placeholder="Search" data-table="table-striped">
+			  </div>
+			</div>
+		  </nav>
+        <div class="table-wrapper">
+            <form class="navbar-form navbar-right" action="/selectors" method="POST">
+                <div>
+                    <input type="text" class="form-control search-input" placeholder="Enter your SQL expression here" name="query">
+                    <button type="submit" class="btn btn-success">Execute</button>
+                </div>
+            </form>
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2>SQL <b>Selector</b></h2>
+					</div>
+                </div>
+            </div>
+            <p th:utext="${table}"></p>
+<script src="/static/js/script.js"></script>
+</body>
+</html>
