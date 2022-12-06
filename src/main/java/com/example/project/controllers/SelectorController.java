@@ -15,37 +15,32 @@ public class SelectorController {
 
     public String getResultSet(@RequestParam String query) throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/webapplication", "postgres", "aidar344567");
-        try {
-            String queryStatement = query.substring(0, 6);
-            if (queryStatement.toLowerCase().equals("select")) {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(query);
-                String result = "<table id=\"table\" class=\"table table-striped table-hover\"><thead><tr>";
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int columnCount = rsmd.getColumnCount();
+        if (query.length() < 6 || query.substring(0,6).toLowerCase().equals("select")) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            String result = "<table id=\"table\" class=\"table table-striped table-hover\"><thead><tr>";
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 0; i < columnCount; i++) {
+                result += "<th>" + rsmd.getColumnLabel(i + 1) + "</th>";
+            }
+            result += "</tr></thead><tbody>";
+            while (rs.next()) {
+                result += "<tr>";
                 for (int i = 0; i < columnCount; i++) {
-                    result += "<th>" + rsmd.getColumnLabel(i + 1) + "</th>";
+                    result += "<td>" + rs.getString(i + 1) + "</td>";
                 }
-                result += "</tr></thead><tbody>";
-                while (rs.next()) {
-                    result += "<tr>";
-                    for (int i = 0; i < columnCount; i++) {
-                        result += "<td>" + rs.getString(i + 1) + "</td>";
-                    }
-                    result += "</tr>";
-                }
-                result += "</tbody></table>";
-                return result;
-            } else {
-                String result = "<p>Number of affected rows: ";
-                PreparedStatement preparedStatement = conn.prepareStatement(query);
-                int affectedRows = preparedStatement.executeUpdate();
-                result += affectedRows + "</p>";
-                return result;
-            } 
-        } catch (Exception e) {
-            throw new SQLException();
-        }
+                result += "</tr>";
+            }
+            result += "</tbody></table>";
+            return result;
+        } else {
+            String result = "<p>Number of affected rows: ";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            int affectedRows = preparedStatement.executeUpdate();
+            result += affectedRows + "</p>";
+            return result;
+        } 
     }
 
     @GetMapping("/selectors")
