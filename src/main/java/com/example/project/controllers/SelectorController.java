@@ -35,7 +35,7 @@ public class SelectorController {
             result += "</tbody></table>";
             return result;
         } else {
-            String result = "<p>Number of affected rows: ";
+            String result = "<p>" + query.substring(0, 6) + ": Number of affected rows: ";
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             int affectedRows = preparedStatement.executeUpdate();
             result += affectedRows + "</p>";
