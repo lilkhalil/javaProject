@@ -97,9 +97,9 @@ function sortTable(n) {
                     myArray.forEach.call(tbody.rows, function(row) {
                         var text_content = '';
                         for (let i = 0; i < row.cells.length - 1; i++) {
-                          text_content += row.cells[i].textContent.toLowerCase();
+                          text_content += row.cells[i].textContentContent.toLowerCase();
                         }
-                        var search_val = search_input.value.toLowerCase();
+                        var search_val = search_input.textContent.toLowerCase();
                         row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
                     });
                 });
@@ -123,3 +123,96 @@ function sortTable(n) {
     });
 
 })(document);
+
+function formChange() {
+  showForm(document.getElementById("operation").value.toLowerCase());  
+}
+
+function hideAllForms() {
+  var forms = document.getElementById("forms").getElementsByTagName("form");
+  for (let i = 0; i < forms.length; i++) {
+    var form = forms[i];
+    form.style.display = "none";
+  }
+}
+
+function showForm(id) {
+  hideAllForms();
+  var forms = document.getElementById("forms").getElementsByTagName("form");
+  for (var i = forms.length; i--; ) {
+    let form = forms[i];
+    if (form.getAttribute("id") === id) {
+      form.style.display = "block";
+    }
+  }
+}
+
+
+function removeOptions(selectElement) {
+  var i, L = selectElement.options.length - 1;
+  for(i = L; i >= 0; i--) {
+     selectElement.remove(i);
+  }
+}
+
+function appendOption(options, selectClass) {
+  var select = document.getElementById(selectClass);
+  if (select.options[0] != null) {
+    removeOptions(select);
+  }
+  if (selectClass != "orderName") {
+    let element = document.createElement("option");
+    element.textContent = "*";
+    element.value = "*";
+    select.appendChild(element);
+  }
+  for (let i = 0; i < options.length; i++) {
+    var opt = options[i];
+    var element = document.createElement("option");
+    element.textContent = opt;
+    element.value = opt;
+    select.appendChild(element);
+  }
+}
+
+
+function getColumns() {
+  var table = document.getElementById("tableName").value;
+  var columns;
+  switch(table) {
+    case "materials":
+      columns = ["id", "name", "resistance", "type"];
+      appendOption(columns, "columnName");
+      appendOption(columns, "orderName");
+      break;
+    case "employees":
+      columns = ["id", "fathername", "job", "name", "surname"];
+      appendOption(columns, "orderName");
+      appendOption(columns, "columnName");
+      break;
+    case "gems":
+      columns = ["id", "class", "name", "weight"];
+      appendOption(columns, "orderName");
+      appendOption(columns, "columnName");
+      break;
+    case "metals":
+      columns = ["id", "density", "name", "sample"];
+      appendOption(columns, "orderName");
+      appendOption(columns, "columnName");
+      break;
+    case "tools":
+      columns = ["id", "name", "power", "type"];
+      appendOption(columns, "orderName");
+      appendOption(columns, "columnName");
+      break;
+    case "jewelrys":
+      columns = ["id", "cost", "type", "id_gem", "id_metal"];
+      appendOption(columns, "orderName");
+      appendOption(columns, "columnName");
+      break;   
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  getColumns();
+}, false);

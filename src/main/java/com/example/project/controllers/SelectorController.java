@@ -48,10 +48,15 @@ public class SelectorController {
         return "selectors";
     }
 
-    @PostMapping("/selectors")
-    public String getTable(@RequestParam String query, Model model) {
+    @GetMapping("/generators")
+    public String getGenerator() {
+        return "generators";
+    }
+
+
+    public String getTable(String query) {
         try {
-            model.addAttribute("table", getResultSet(query));
+            return getResultSet(query);
         } catch (SQLException ex) {
             String sqlException = "";
             for (Throwable e : ex) {
@@ -61,8 +66,59 @@ public class SelectorController {
                     sqlException += "<p>Message: " + e.getMessage() + "</p>";
                 }
             }
-            model.addAttribute("sqlException", sqlException);
+            return sqlException;
         }
+    }
+    
+    @PostMapping("/select")
+    public String getSelect(@RequestParam String columnName,
+    @RequestParam String tableName,
+    @RequestParam(required = false) String whereColumn,
+    @RequestParam(required = false) String orderBy,
+    Model model
+    ) {
+        String result = "SELECT " + columnName.trim() + " FROM " + tableName.trim();
+        if (!whereColumn.isEmpty()) {
+            result += " WHERE " + whereColumn.trim();
+        }
+        if (!orderBy.isEmpty()) {
+            result += " ORDER BY " + orderBy.trim();
+        }
+        model.addAttribute("result", getTable(result));
+        return "generators";
+    }
+
+    @PostMapping("/insert")
+    public String getInsert(@RequestParam String tableName, @RequestParam String values, Model model) {
+        String result = "INSERT INTO " + tableName.trim() + " VALUES " + values.trim();
+        model.addAttribute("result", getTable(result));
+        return "generators";
+    }
+
+    @PostMapping("/update")
+    public String getUpdate(@RequestParam String tableName, @RequestParam String value, @RequestParam(required = false) String whereColumn, Model model) {
+        String result = "UPDATE " + tableName.trim() + " SET " + value.trim();
+        if (!whereColumn.isEmpty()) {
+            result += " WHERE " + whereColumn.trim();
+        }
+        model.addAttribute("result", getTable(result));
+        return "generators";
+    }
+
+    @PostMapping("/delete")
+    public String getDelete(@RequestParam String tableName, @RequestParam(required = false) String whereColumn, Model model) {
+        String result = "DELETE FROM " + tableName.trim();
+        if (!whereColumn.isEmpty()) {
+            result += " WHERE " + whereColumn.trim();
+        }
+        model.addAttribute("result", getTable(result));
+        return "generators";
+    }
+
+    @PostMapping("/selectors")
+    public String getResult(@RequestParam String query, Model model) {
+        model.addAttribute("result", getTable(query));
         return "selectors";
-    } 
+    }
+
 }

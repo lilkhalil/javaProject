@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL Selector</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <body>
+    <div class="container">
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+			  <div class="navbar-header">
+				<b><a class="navbar-brand" href="/">Haunted Family</a></b>
+			  </div>
+			  <ul class="nav navbar-nav">
+				<li><a href="/materials">Materials</a></li>
+				<li><a href="/tools">Tools</a></li>
+				<li><a href="/employees">Employees</a></li>
+                <li><a href="/gems">Gems</a></li>
+                <li><a href="/metals">Metals</a></li>
+                <li><a href="/jewelrys">Jewelrys</a></li>
+                <li><a href="/selectors">SQL Editor</a></li>
+                <li><a href="/generators">SQL Generators</a></li>
+			  </ul>
+			</div>
+		  </nav>
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2>SQL <b>Selector</b></h2>
+					</div>
+                </div>
+            </div>
+            <select id="operation" class="form-control" onchange="formChange()">
+                <option>SELECT</option>
+                <option>INSERT INTO</option>
+                <option>UPDATE</option>
+                <option>DELETE</option>
+            </select>
+            <div id="forms">
+                <form id="select" class="navbar-form" action="/select" method="POST" style="display: block;">
+                    <span id="queryName">SELECT</span>
+                    <select id="columnName" name="columnName" type="text" class="form-control" placeholder="choose table..." required>
+                      <option selected>*</option>
+                    </select>
+                    <span id="fromName">FROM</span>
+                    <select id="tableName" name="tableName" type="text" class="form-control" placeholder="table name..." onchange="getColumns()" required>
+                      <option selected value="materials">materials</option>
+                      <option>tools</option>
+                      <option>employees</option>
+                      <option>gems</option>
+                      <option>metals</option>
+                      <option>jewelrys</option>
+                    </select>
+                    <span id="whereClase">WHERE</span>
+                    <input name="whereColumn" class="form-control" placeholder="clause...">
+                    <span id="whereClase">ORDER BY</span>
+                    <select id="orderName" name="orderBy" type="text" class="form-control" placeholder="choose table...">
+                      <option selected value=""></option>
+                    </select>
+                    <button type="submit" class="btn btn-success">Execute</button>
+                </form>
+                <form id="insert into" class="navbar-form" action="/insert" method="POST" style="display: none;">
+                    <span id="queryName">INSERT INTO</span>
+                    <select id="tableName" name="tableName" type="text" class="form-control" placeholder="table name..." required>
+                      <option selected value="materials(name,resistance,type)">materials(name,resistance,type)</option>
+                      <option>tools(name,power,type)</option>
+                      <option>employees(fathername,job,name,surname)</option>
+                      <option>gems(class,name,weight)</option>
+                      <option>metals(density,name,sample)</option>
+                      <option>jewelry(cost,type,id_gem,id_metal)</option>
+                    </select>
+                    <span id="fromName">VALUES</span>
+                    <input id="values" type="text" class="form-control" placeholder="table name..." name="values">
+                    <button type="submit" class="btn btn-success">Execute</button>
+                </form>
+                <form id="delete" class="navbar-form" action="/delete" method="POST" style="display: none;">
+                    <span id="queryName">DELETE</span>
+                    <span id="fromName">FROM</span>
+                    <select id="tableName" name="tableName" type="text" class="form-control" placeholder="table name..." onchange="getColumns()" required>
+                      <option selected value="materials">materials</option>
+                      <option>tools</option>
+                      <option>employees</option>
+                      <option>gems</option>
+                      <option>metals</option>
+                      <option>jewelrys</option>
+                    </select>
+                    <span id="whereClase">WHERE</span>
+                    <input id="whereColumn" class="form-control" name="whereColumn" placeholder="clause...">
+                    <button type="submit" class="btn btn-success">Execute</button>
+                </form>
+                <form id="update" class="navbar-form" action="/update" method="POST" style="display: none;">
+                    <span id="queryName">UPDATE</span>
+                    <select id="tableName" name="tableName" type="text" class="form-control" placeholder="table name..." onchange="getColumns()" required>
+                      <option selected value="materials">materials</option>
+                      <option>tools</option>
+                      <option>employees</option>
+                      <option>gems</option>
+                      <option>metals</option>
+                      <option>jewelrys</option>
+                    </select>
+                    <span id="fromName">SET</span>
+                    <input id="columnName" type="text" class="form-control" placeholder="column name..." name="value">
+                    <span id="whereClase">WHERE</span>
+                    <input id="whereColumn" name="whereColumn" class="form-control" placeholder="clause...">
+                    <button type="submit" class="btn btn-success">Execute</button>
+                </form>
+            </div>
+            <p th:utext="${result}"></p>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

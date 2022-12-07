@@ -28,18 +28,16 @@
                 <li><a href="/gems">Gems</a></li>
                 <li><a href="/metals">Metals</a></li>
                 <li><a href="/jewelrys">Jewelrys</a></li>
-                <li><a href="/selectors">SQL Selector</a></li>
+                <li><a href="/selectors">SQL Editor</a></li>
+                <li><a href="/generators">SQL Generators</a></li>
 			  </ul>
-			  <div class="navbar-form navbar-right">
-				<input id="searchButton" type="text" class="form-control search-input" placeholder="Search" data-table="table-striped">
-			  </div>
 			</div>
 		  </nav>
         <div class="table-wrapper">
             <form class="navbar-form navbar-right" action="/selectors" method="POST">
                 <div>
-                    <input type="text" class="form-control search-input" placeholder="Enter your SQL expression here" name="query">
-                    <button type="submit" class="btn btn-success">Execute</button>
+                  <input type="text" class="form-control search-input" placeholder="Enter your SQL expression here" name="query">
+                  <button type="submit" class="btn btn-success">Execute</button>
                 </div>
             </form>
             <div class="table-title">
@@ -49,8 +47,7 @@
 					</div>
                 </div>
             </div>
-            <p th:if="${table != null}" th:utext="${table}"></p>
-            <p th:unless="${table != null}" th:utext="${sqlException}"></p>
+            <p th:utext="${result}"></p>
 <script src="/static/js/script.js"></script>
 </body>
 </html>
