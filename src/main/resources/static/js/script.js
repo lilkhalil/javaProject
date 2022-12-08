@@ -97,9 +97,9 @@ function sortTable(n) {
                     myArray.forEach.call(tbody.rows, function(row) {
                         var text_content = '';
                         for (let i = 0; i < row.cells.length - 1; i++) {
-                          text_content += row.cells[i].textContentContent.toLowerCase();
+                          text_content += row.cells[i].textContent.toLowerCase();
                         }
-                        var search_val = search_input.textContent.toLowerCase();
+                        var search_val = search_input.value.toLowerCase();
                         row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
                     });
                 });
@@ -108,7 +108,7 @@ function sortTable(n) {
 
         return {
             init: function() {
-                var inputs = document.getElementsByClassName('search-input');
+                var inputs = document.getElementsByClassName("search-input");
                 myArray.forEach.call(inputs, function(input) {
                     input.oninput = _onInputSearch;
                 });
@@ -182,35 +182,25 @@ function getColumns() {
   switch(table) {
     case "materials":
       columns = ["id", "name", "resistance", "type"];
-      appendOption(columns, "columnName");
-      appendOption(columns, "orderName");
       break;
     case "employees":
       columns = ["id", "fathername", "job", "name", "surname"];
-      appendOption(columns, "orderName");
-      appendOption(columns, "columnName");
       break;
     case "gems":
       columns = ["id", "class", "name", "weight"];
-      appendOption(columns, "orderName");
-      appendOption(columns, "columnName");
       break;
     case "metals":
       columns = ["id", "density", "name", "sample"];
-      appendOption(columns, "orderName");
-      appendOption(columns, "columnName");
       break;
     case "tools":
       columns = ["id", "name", "power", "type"];
-      appendOption(columns, "orderName");
-      appendOption(columns, "columnName");
       break;
     case "jewelrys":
       columns = ["id", "cost", "type", "id_gem", "id_metal"];
-      appendOption(columns, "orderName");
-      appendOption(columns, "columnName");
       break;   
   }
+  appendOption(columns, "columnName");
+  appendOption(columns, "orderName");
 }
 
 document.addEventListener('DOMContentLoaded', function() {

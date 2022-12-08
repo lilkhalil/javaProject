@@ -65,8 +65,12 @@
                     <span id="whereClase">WHERE</span>
                     <input name="whereColumn" class="form-control" placeholder="clause...">
                     <span id="whereClase">ORDER BY</span>
-                    <select id="orderName" name="orderBy" type="text" class="form-control" placeholder="choose table...">
+                    <select id="orderName" name="orderBy" type="text" class="form-control">
                       <option selected value=""></option>
+                    </select>
+                    <select id="orderStrategy" name="orderStrategy" type="text" class="form-control">
+                      <option selected value="ASC">ASC</option>
+                      <option>DESC</option>
                     </select>
                     <button type="submit" class="btn btn-success">Execute</button>
                 </form>
@@ -110,7 +114,8 @@
                       <option>jewelrys</option>
                     </select>
                     <span id="fromName">SET</span>
-                    <input id="columnName" type="text" class="form-control" placeholder="column name..." name="value">
+                    <input id="columnName" list="inputs" type="text" class="form-control" placeholder="column name..." name="value">
+                    <datalist id="inputs"></datalist>
                     <span id="whereClase">WHERE</span>
                     <input id="whereColumn" name="whereColumn" class="form-control" placeholder="clause...">
                     <button type="submit" class="btn btn-success">Execute</button>

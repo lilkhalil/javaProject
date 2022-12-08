@@ -75,6 +75,7 @@ public class SelectorController {
     @RequestParam String tableName,
     @RequestParam(required = false) String whereColumn,
     @RequestParam(required = false) String orderBy,
+    @RequestParam(required = false) String orderStrategy,
     Model model
     ) {
         String result = "SELECT " + columnName.trim() + " FROM " + tableName.trim();
@@ -82,7 +83,7 @@ public class SelectorController {
             result += " WHERE " + whereColumn.trim();
         }
         if (!orderBy.isEmpty()) {
-            result += " ORDER BY " + orderBy.trim();
+            result += " ORDER BY " + orderBy.trim() + " " + orderStrategy.trim();
         }
         model.addAttribute("result", getTable(result));
         return "generators";
